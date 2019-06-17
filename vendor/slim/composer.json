@@ -1,0 +1,6 @@
+{
+    "require": {
+        "lulco/redis-proxy": "^0.4.1",
+        "slim/slim": "^3.12"
+    }
+}
