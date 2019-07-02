@@ -1,7 +1,33 @@
 <?php
 
 class Config {
-    public $news = "https://services.iktv.ir/pl/app.svc/contents/list/";
+
+    public $data;
+
+    function __construct() {
+        // Check redis for cached config
+        // if no config available in cache, include the file
+        // cache config as use here
+        $this->data = $this->getConfig();
+    }
+
+    private function getConfig() {
+        $config = $this->retrieveCache();
+        if ($config) {
+            return $config;
+        }
+        return $this->loadFile();
+    }
+
+    private function retrieveCache() {
+        // TODO
+        return false;
+    }
+
+    private function loadFile() {
+        $str = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.json');
+        return json_decode($str);
+    }
 }
 
 //"api": {
