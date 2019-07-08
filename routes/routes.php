@@ -1,22 +1,11 @@
 <?php
 
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
+require 'modules/default.php';
 
-$app->get('/', function (Request $request, Response $response, array $args) {
-    $response->getBody()->write('{"success": true, "message": "HbbTV Backend"}');
-
-    return $response;
-});
-
-foreach (glob('modules/*.php') as $filename) {
-    echo $filename;
-    require $filename;
+$modules = Config::getInstance()->data->modules;
+foreach ($modules as $name => $config) {
+    require 'modules' . DS . $name . '.php';
 }
-die;
-
-
-
 
 
 //$app->group('/users/{id:[0-9]+}', function (App $app) {

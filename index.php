@@ -1,20 +1,18 @@
 <?php
 
+define('DS', DIRECTORY_SEPARATOR);
 define('BASE', dirname(__FILE__));
+
+require 'helpers/includes.php';
 
 require 'vendor/slim/autoload.php';
 require 'vendor/predis/autoload.php';
 
-require 'helpers/defines.php';
-
-
-$config = [
+$app = new \Slim\App([
     'settings' => [
         'displayErrorDetails' => true
     ],
-];
-
-$app = new \Slim\App($config);
+]);
 
 require 'routes/routes.php';
 
