@@ -1,14 +1,22 @@
 <?php
 
-class Config {
+final class Config {
 
     public $data;
+    private static $instance = null;
 
-    function __construct() {
+    private function __construct() {
         // Check redis for cached config
         // if no config available in cache, include the file
         // cache config as use here
         $this->data = $this->getConfig();
+    }
+
+    public static function getInstance() {
+        if (self::$instance == null) {
+            self::$instance = new Config();
+        }
+        return self::$instance;
     }
 
     private function getConfig() {

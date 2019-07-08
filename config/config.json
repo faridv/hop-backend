@@ -1,5 +1,28 @@
 {
-    "news": {
-        "url": "https://services.iktv.ir/pl/app.svc/contents/list/"
+    "modules": {
+        "news": {
+            "url": "https://services.iktv.ir/pl/app.svc/contents/list/?Categories=-1&count=20&ordering=Published%20desc",
+            "expire": 300
+        },
+        "schedule": {
+            "url": "https://services.iktv.ir/pl/frontend.svc/schedule/",
+            "expire": 300
+        },
+        "weather": {
+            "url": "http://77.36.163.194/weather.php",
+            "expire": 600
+        },
+        "programs": {
+            "url": "https://services.iktv.ir/pl/app.svc/programs/list/1,2,3,4/50/published%20desc/1",
+            "list": "https://iktv.ir/services/pl/app.svc/programs/list/{programType}/20/Title/1",
+            "episodes": "https://services.iktv.ir/pl/app.svc/programs/episodes/{programId}/20/published%20desc",
+            "ThumbnailUrlPrefix": "https://cdn.iktv.ir/images/thumbnail/",
+            "TrailerUrlPrefix": "https://cdn.iktv.ir/videos/",
+            "expire": 900
+        },
+        "quran": {
+            "url": "http://77.36.163.196:7070/",
+            "expire": 3600
+        }
     }
 }
