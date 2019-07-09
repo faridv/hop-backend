@@ -1,4 +1,10 @@
 {
+    "cache": {
+        "type": "redis",
+        "host": "127.0.0.1",
+        "port": 6379,
+        "database": 15
+    },
     "modules": {
         "news": {
             "url": "https://services.iktv.ir/pl/app.svc/contents/list/?Categories=-1&count=20&ordering=Published%20desc",
@@ -16,8 +22,9 @@
             "url": "https://services.iktv.ir/pl/app.svc/programs/list/1,2,3,4/50/published%20desc/1",
             "list": "https://iktv.ir/services/pl/app.svc/programs/list/{programType}/20/Title/1",
             "episodes": "https://services.iktv.ir/pl/app.svc/programs/episodes/{programId}/20/published%20desc",
-            "ThumbnailUrlPrefix": "https://cdn.iktv.ir/images/thumbnail/",
-            "TrailerUrlPrefix": "https://cdn.iktv.ir/videos/",
+            "thumbnailUrlPrefix": "https://cdn.iktv.ir/images/thumbnail/",
+            "trailerUrlPrefix": "https://cdn.iktv.ir/videos/",
+            "episodeThumbnailUrlPrefix": "https://cdn.iktv.ir/videos/",
             "expire": 900
         },
         "quran": {
