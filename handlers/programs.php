@@ -29,25 +29,45 @@ final class ProgramHandler {
         return Proxy::fetch($url);
     }
 
-    public function getEpisode($programId) {
+    public function getEpisodes($programId) {
         $url = str_replace('{programId}', (string)$programId, $this->config->episodes);
-        return Proxy::fetch($url);
+//        return Proxy::fetch($url);
+        return $this->handleEpisodes(Proxy::fetch($url));
     }
 
-    public function handle($items) {
+    private function handle($items) {
         $output = [];
         foreach ($items as $key => $item) {
             if (!$item->IsPublished)
                 continue;
             $c = new stdClass();
             $c->id = $item->Id;
-            $c->image = $item->Image ? $this->config->ThumbnailUrlPrefix . str_replace('.jpg', '_xl.jpg', $item->Image) : null;
+            $c->image = $item->Image ? $this->config->thumbnailUrlPrefix . str_replace('.jpg', '_xl.jpg', $item->Image) : null;
             $c->summary = $item->IntroText;
             $c->title = $item->Title;
             $c->description = $item->FullText;
             $c->director = $item->Director;
             $c->schedule = $item->Schedule;
-            $c->trailer = $item->Video ? $this->config->ThumbnailUrlPrefix . str_replace('\\', '/', str_replace('.mp4', '_wlq.mp4', $item->Video)) : null;
+            $c->trailer = $item->Video ? $this->config->trailerUrlPrefix . str_replace('\\', '/', str_replace('.mp4', '_wlq.mp4', $item->Video)) : null;
+
+            $output[] = $c;
+        }
+        return $output;
+    }
+
+    private function handleEpisodes($items) {
+        $output = [];
+        foreach ($items as $key => $item) {
+            if (!$item->IsPublished)
+                continue;
+            $c = new stdClass();
+            $c->id = $item->Id;
+            $c->image = $item->Image ? $this->config->episodeThumbnailUrlPrefix . $item->Image : null;
+            $c->video = $item->Image ? $this->config->episodeThumbnailUrlPrefix . str_replace('.jpg', '_wlq.mp4', $item->Image) : null;
+            $c->title = $item->Title;
+            $c->summary= $item->Introtext;
+            $c->part = $item->Number;
+
             $output[] = $c;
         }
         return $output;
