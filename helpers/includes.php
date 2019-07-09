@@ -7,5 +7,6 @@ header('Acess-Control-Allow-Credentials: true');
 
 require_once BASE . DS . 'config/default.php';
 require_once BASE . DS . 'helpers/proxy.php';
+require_once BASE . DS . 'helpers/cache.php';
 
 //$config = new Config();
