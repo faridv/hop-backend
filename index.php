@@ -5,8 +5,7 @@ define('BASE', dirname(__FILE__));
 
 require 'helpers/includes.php';
 
-require 'vendor/slim/autoload.php';
-require 'vendor/predis/autoload.php';
+require 'vendor/vendor-loader.php';
 
 $app = new \Slim\App([
     'settings' => [
