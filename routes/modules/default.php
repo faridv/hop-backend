@@ -4,8 +4,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 $app->get('/', function (Request $request, Response $response, array $args) {
-    $response->getBody()->write('{"success": true, "message": "HbbTV Backend"}');
-
+    $response = new \Slim\Http\Response(200);
+    $response->write('{"success": true, "message": "HbbTV Backend"}');
     return $response;
 });
 
