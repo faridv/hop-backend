@@ -12,9 +12,9 @@ $app->group('/quran', function (App $app) {
         return $response->write('{"success":true,"message":"Welcome to Quran API"}');
     })->setName('quran');
 
-    $app->map(['GET'], '/surah[/{id:[0-9]+}]', function (Request $request, Response $response, $args) {
-        echo $args['id']; die();
-        return $response->withJson($programs, 200, JSON_UNESCAPED_UNICODE);
-    })->setName('programs-list');
+    $app->map(['GET'], '/surah/{id:[0-9]+}', function (Request $request, Response $response, $args) {
+        $surah = QuranHandler::getInstance()->getSurah($args['id']);
+        return $response->withJson($surah, 200, JSON_UNESCAPED_UNICODE);
+    })->setName('quran-surah');
 
 });

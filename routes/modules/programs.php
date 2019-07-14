@@ -15,8 +15,15 @@ $app->group('/programs', function (App $app) {
     })->setName('programs');
 
     // Get programs list [2]
-    $app->map(['GET'], '/list[/]', function (Request $request, Response $response, $args) {
-        $programs = ProgramHandler::getInstance()->getList();
+    $app->map(['GET'], '/latest[/]', function (Request $request, Response $response, $args) {
+        $programs = ProgramHandler::getInstance()->getLatest();
+        return $response->withJson($programs, 200, JSON_UNESCAPED_UNICODE);
+    })->setName('programs-list');
+
+    // Get programs by type [2]
+    $app->map(['GET'], '/type/{type:[0-9]+}[/]', function (Request $request, Response $response, $args) {
+        $programType = $args['type'];
+        $programs = ProgramHandler::getInstance()->getList($programType);
         return $response->withJson($programs, 200, JSON_UNESCAPED_UNICODE);
     })->setName('programs-list');
 
