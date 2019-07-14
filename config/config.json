@@ -3,7 +3,7 @@
         "type": "redis",
         "host": "127.0.0.1",
         "port": 6379,
-        "database": 15
+        "database": 0
     },
     "modules": {
         "news": {
@@ -28,7 +28,8 @@
             "expire": 900
         },
         "quran": {
-            "url": "http://77.36.163.196:7070/",
+            "url": "http://77.36.163.196:7070/v1/",
+            "edition": "quran-simple,fa.makarem",
             "expire": 3600
         }
     }
