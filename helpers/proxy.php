@@ -24,9 +24,9 @@ abstract class Proxy {
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 
         // retrieve response (headers and content)
-        $response = curl_exec($ch);
-
-        if ($response === false) {
+        try {
+            $response = curl_exec($ch);
+        } catch (Exception $exception) {
             throw new Exception(curl_error($ch), curl_errno($ch));
         }
 
