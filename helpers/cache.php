@@ -10,9 +10,10 @@ final class Cache {
     private function __construct() {
         $this->config = Config::getInstance()->data->cache;
         $this->serverConfig = [
+            'scheme' => 'tcp',
             'host' => $this->config->host,
             'port' => $this->config->port,
-            'database' => $this->config->database,
+//            'database' => $this->config->database,
         ];
         $this->client = new Predis\Client($this->serverConfig);
     }
@@ -24,13 +25,20 @@ final class Cache {
         return self::$instance;
     }
 
-    public function set($data) {
-        echo 111; die;
-        return $this->client->set($data);
+    public function set($key, $data, $expire) {
+        try {
+            $this->client->set($key, $data, 'EX', $expire);
+        } catch (Exception $e) {
+            // ignore
+        }
+        return is_string($data) ? json_decode($data) : $data;
     }
 
     public function get($key) {
-        echo 222,$key; die;
+        $data = $this->client->get($key);
+        if (strlen($data) === 0)
+            return $data;
+        return is_string($data) ? json_decode($data) : $data;
     }
 
 }
