@@ -1,14 +1,17 @@
 <?php
 
+use ResponseHelper as Response;
+
 final class NewsHandler {
 
     private static $instance = null;
     private $config;
     private $cacheClient;
+    private $fromCache = false;
 
     private function __construct() {
         $this->config = Config::getInstance()->data->modules->news;
-        $this->cacheClient = Cache::getInstance()->client;
+        $this->cacheClient = Cache::getInstance();
     }
 
     public static function getInstance() {
@@ -23,18 +26,15 @@ final class NewsHandler {
     }
 
     public function getAll() {
-//        echo $this->checkCache(); die();
-//        $cachedData = $this->checkCache();
-//        if ($cachedData) {
-//            return $cachedData;
-//        }
+        $cachedData = $this->checkCache();
+        if ($cachedData) {
+            $this->fromCache = true;
+            return Response::prepare($cachedData, $this->fromCache);
+        }
         $data = $this->handle(Proxy::fetch($this->config->url));
-        return $this->cacheClient->set('news', json_encode($data, JSON_UNESCAPED_UNICODE));
+        $cachedData = $this->cacheClient->set('news', json_encode($data, JSON_UNESCAPED_UNICODE), $this->config->expire);
+        return Response::prepare($cachedData, $this->fromCache);
     }
-
-//    public function getById($id) {
-//        return Proxy::fetch($this->config->url . '/' . $id);
-//    }
 
     private function handle($items) {
         $output = [];
@@ -50,7 +50,7 @@ final class NewsHandler {
             $c->categories = [];
             if (count($item->Categories)) {
                 foreach ($item->Categories as $category) {
-                    $c->category[] = $category->Title;
+                    $c->categories[] = $category->Title;
                 }
             }
             if (count($item->Repositories)) {
@@ -58,7 +58,6 @@ final class NewsHandler {
                 $c->thumbnail->url = $item->Repositories[0]->Thumbnail;
                 $c->thumbnail->desc = $item->Repositories[0]->Description;
             }
-
             $output[] = $c;
         }
         return $output;
