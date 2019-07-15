@@ -35,6 +35,11 @@
             "url": "http://77.36.163.196:7070/v1/",
             "edition": "quran-simple,fa.makarem",
             "expire": 86400
+        },
+        "market": {
+            "labels": "http://au.iktv.ir/services/api/economy/tree",
+            "data": "http://au.iktv.ir/services/api/economy/data",
+            "expire": 3600
         }
     }
 }
