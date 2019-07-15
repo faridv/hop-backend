@@ -45,6 +45,9 @@ final class ScheduleHandler {
             $c->description = $item->description;
             $c->start = $item->start;
             $c->duration = $item->duration;
+            if ($item->isCurrent) {
+                $c->isCurrent = $item->isCurrent;
+            }
             $c->episodeTitle = $item->episodeTitle;
             $c->programTitle = $item->programTitle;
             $c->thumbnail = $item->thumbnail;
