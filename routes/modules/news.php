@@ -14,11 +14,4 @@ $app->group('/news', function (App $app) {
         return $response->withJson($news, 200, JSON_UNESCAPED_UNICODE);
     })->setName('news-all');
 
-    // news by id
-    // Route for /news/{id:[0-9]+}
-//    $app->get('/{id:[0-9]+}', function ($request, $response, $args) {
-//        $newsItem = NewsHandler::getInstance()->getById($args['id']);
-//        return $response->withJson($newsItem, 200, JSON_UNESCAPED_UNICODE);
-//    })->setName('news-by-id');
-
 });
