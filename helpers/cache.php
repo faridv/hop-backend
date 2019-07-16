@@ -27,7 +27,10 @@ final class Cache {
 
     public function set($key, $data, $expire) {
         try {
-            $this->client->set($key, $data, 'EX', $expire);
+            if ($expire !== -1)
+                $this->client->set($key, $data, 'EX', $expire);
+            else
+                $this->client->set($key, $data);
         } catch (Exception $e) {
             // ignore
         }
