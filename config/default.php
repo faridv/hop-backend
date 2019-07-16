@@ -33,7 +33,7 @@ final class Config {
     }
 
     private function loadFile() {
-        $str = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'config.json');
+        $str = file_get_contents(dirname(__FILE__) . DS . 'config.json');
         return json_decode($str);
     }
 }
