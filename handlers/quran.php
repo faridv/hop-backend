@@ -91,6 +91,11 @@ final class QuranHandler {
     private function handleAyah($ayahs) {
         foreach ($ayahs as $ayah) {
             $ayah->number = $ayah->numberInSurah;
+            if ($ayah->number == 1) {
+                if (stristr($ayah->text, 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ')) {
+                    $ayah->text = str_replace('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ', '', $ayah->text);
+                }
+            }
             unset($ayah->numberInSurah);
             unset($ayah->juz);
             unset($ayah->manzil);
