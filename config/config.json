@@ -8,11 +8,11 @@
     "modules": {
         "news": {
             "url": "https://services.iktv.ir/pl/app.svc/contents/list/?Categories=-1&count=20&ordering=Published%20desc",
-            "expire": 3600
+            "expire": 21600
         },
         "schedule": {
             "url": "https://services.iktv.ir/pl/frontend.svc/schedule/",
-            "expire": 300
+            "expire": 21600
         },
         "weather": {
             "url": "http://77.36.163.194/weather.php",
@@ -25,11 +25,11 @@
             "thumbnailUrlPrefix": "https://cdn.iktv.ir/images/thumbnail/",
             "trailerUrlPrefix": "https://cdn.iktv.ir/videos/",
             "episodeThumbnailUrlPrefix": "https://cdn.iktv.ir/videos/",
-            "expire": 3600
+            "expire": 21600
         },
         "media": {
-            "url": "https://au.iktv.ir/services/api/media/",
-            "expire": 3600
+            "url": "http://178.252.134.130/services/api/media/",
+            "expire": 21600
         },
         "quran": {
             "url": "http://77.36.163.196:7070/v1/",
@@ -37,9 +37,13 @@
             "expire": -1
         },
         "market": {
-            "labels": "http://au.iktv.ir/services/api/economy/tree",
-            "data": "http://au.iktv.ir/services/api/economy/data",
-            "expire": 3600
+            "labels": "http://178.252.134.130/services/api/economy/tree",
+            "data": "http://178.252.134.130/services/api/economy/data",
+            "expire": 21600
+        },
+        "tehran-air": {
+            "url": "http://31.24.238.89/home/homedata.aspx?id={type}",
+            "expire": 1800
         }
     }
 }
