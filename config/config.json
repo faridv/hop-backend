@@ -8,7 +8,7 @@
     "modules": {
         "news": {
             "url": "https://services.iktv.ir/pl/app.svc/contents/list/?Categories=-1&count=20&ordering=Published%20desc",
-            "expire": 21600
+            "expire": 1800
         },
         "schedule": {
             "url": "https://services.iktv.ir/pl/frontend.svc/schedule/",
