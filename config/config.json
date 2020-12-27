@@ -44,6 +44,10 @@
         "tehran-air": {
             "url": "http://31.24.238.89/home/homedata.aspx?id={type}",
             "expire": 1800
+        },
+		"items": {
+            "url": "http://uhdtv.ir/cms/api/items",
+            "expire": 0
         }
     }
 }
