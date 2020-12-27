@@ -63,6 +63,26 @@ final class ProgramHandler {
         $cachedData = $this->cacheClient->set("programs-episodes/{$programId}", json_encode($data, JSON_UNESCAPED_UNICODE), $this->config->expire);
         return Response::prepare($cachedData, $this->fromCache);
     }
+	
+	public function closeTags($html) {
+		preg_match_all('#<(?!meta|img|br|hr|input\b)\b([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result);
+		$openedtags = $result[1];
+		preg_match_all('#</([a-z]+)>#iU', $html, $result);
+		$closedtags = $result[1];
+		$len_opened = count($openedtags);
+		if (count($closedtags) == $len_opened) {
+			return $html;
+		}
+		$openedtags = array_reverse($openedtags);
+		for ($i=0; $i < $len_opened; $i++) {
+			if (!in_array($openedtags[$i], $closedtags)) {
+				$html .= '</'.$openedtags[$i].'>';
+			} else {
+				unset($closedtags[array_search($openedtags[$i], $closedtags)]);
+			}
+		}
+		return $html;
+	}
 
     private function handle($items) {
         $output = [];
@@ -72,9 +92,9 @@ final class ProgramHandler {
             $c = new stdClass();
             $c->id = $item->Id;
             $c->image = $item->Image ? $this->config->thumbnailUrlPrefix . str_replace('.jpg', '_xl.jpg', $item->Image) : null;
-            $c->summary = $item->IntroText;
+            $c->summary = html_entity_decode($this->closeTags($item->IntroText), ENT_QUOTES | ENT_HTML5, 'UTF-8');
             $c->title = $item->Title;
-            $c->description = $item->FullText;
+            $c->description = html_entity_decode($this->closeTags($item->FullText), ENT_QUOTES | ENT_HTML5, 'UTF-8');
             $c->director = $item->Director;
             $c->schedule = $item->Schedule;
             $c->trailer = $item->Video ? $this->config->trailerUrlPrefix . str_replace('\\', '/', str_replace('.mp4', '_wlq.mp4', $item->Video)) : null;
@@ -94,7 +114,7 @@ final class ProgramHandler {
             $c->image = $item->Image ? $this->config->episodeThumbnailUrlPrefix . $item->Image : null;
             $c->video = $item->Image ? $this->config->episodeThumbnailUrlPrefix . str_replace('.jpg', '_wlq.mp4', $item->Image) : null;
             $c->title = $item->Title;
-            $c->summary= $item->Introtext;
+            $c->summary= html_entity_decode($this->closeTags($item->Introtext), ENT_QUOTES | ENT_HTML5, 'UTF-8');
             $c->part = $item->Number;
 
             $output[] = $c;

@@ -32,9 +32,30 @@ final class NewsHandler {
             return Response::prepare($cachedData, $this->fromCache);
         }
         $data = $this->handle(Proxy::fetch($this->config->url));
+		
         $cachedData = $this->cacheClient->set('news', json_encode($data, JSON_UNESCAPED_UNICODE), $this->config->expire);
         return Response::prepare($cachedData, $this->fromCache);
     }
+	
+	public function closeTags($html) {
+		preg_match_all('#<(?!meta|img|br|hr|input\b)\b([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result);
+		$openedtags = $result[1];
+		preg_match_all('#</([a-z]+)>#iU', $html, $result);
+		$closedtags = $result[1];
+		$len_opened = count($openedtags);
+		if (count($closedtags) == $len_opened) {
+			return $html;
+		}
+		$openedtags = array_reverse($openedtags);
+		for ($i=0; $i < $len_opened; $i++) {
+			if (!in_array($openedtags[$i], $closedtags)) {
+				$html .= '</'.$openedtags[$i].'>';
+			} else {
+				unset($closedtags[array_search($openedtags[$i], $closedtags)]);
+			}
+		}
+		return $html;
+	} 
 	
 	public function getCategory($newsId) {
 		$cachedData = $this->checkCache('news-' . $newsId);
@@ -58,7 +79,7 @@ final class NewsHandler {
             $c->shortTitle = $item->ShortTitle;
             $c->title = $item->Title;
             $c->summary = $item->Introtext;
-            $c->text = $item->Fulltext;
+            $c->text = html_entity_decode($this->closeTags($item->Fulltext), ENT_QUOTES | ENT_HTML5, 'UTF-8');
             $c->categories = [];
             if (count($item->Categories)) {
                 foreach ($item->Categories as $category) {
