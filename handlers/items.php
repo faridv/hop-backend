@@ -41,6 +41,9 @@ final class ItemsHandler {
     }
 
     private function handle($items) {
+		foreach ($items as $item) {
+			$item->introtext = strip_tags($item->introtext);
+		}
         return $items;
     }
 
