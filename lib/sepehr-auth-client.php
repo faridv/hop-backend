@@ -14,8 +14,10 @@ class OAuthClient {
     public $authorizeUrl = 'https://sepehrapi.irib.ir/v1/oauth/authorize';
     public $accessTokenUrl = 'https://sepehrapi.irib.ir/v1/oauth/access_token';
     public $tokenRequestMethod = 'GET';
-    public $consumerKey = 'QKORpgyu9mpw3MZUUwu8Mm4qxYMsXq3L';
-    public $consumerSecret = 'jtroj3hkyjlU06j7MtJimJ1I3PTTpx39';
+//    public $consumerKey = 'QKORpgyu9mpw3MZUUwu8Mm4qxYMsXq3L';
+    public $consumerKey = 'pzIpGvVrFaFaAzb8HjkDyiEdLn8MouiY';
+//    public $consumerSecret = 'jtroj3hkyjlU06j7MtJimJ1I3PTTpx39';
+    public $consumerSecret = 'awr2iNFvGfx4yusGEhQAu6rp9wAYbiA7';
     public $oauthUsername = 'roshan';
     public $oauthPassword = 'e10adc3949ba59abbe56e057f20f883e';
     public $tokens = null;

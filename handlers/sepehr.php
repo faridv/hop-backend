@@ -140,12 +140,12 @@ final class SepehrHandler {
         $output = [];
         $items = json_decode($data)->list;
         foreach ($items as $key => $item) {
-            if (!$item->src_poster)
-                continue;
+//            if (!$item->src_poster)
+//                continue;
             $c = new stdClass();
             $c->id = $item->id;
             $c->name = $item->name;
-            $c->poster = $item->src_poster;
+            @$c->poster = $item->src_poster;
 
             $output[] = $c;
         }
@@ -163,7 +163,13 @@ final class SepehrHandler {
             $c->icon = $item->icon;
             @$c->poster = $item->poster;
             $c->preview = $item->preview;
-            $c->stream = $item->streams[0]->src;
+            $c->stream = [];
+            if (count($item->streams)) {
+                foreach ($item->streams as $stream) {
+                    $c->stream[] = $stream->src;
+                }
+            }
+//            $c->stream = $item->streams[0]->src;
             $c->current = new stdClass();
             $c->current->start = $item->currentProgram->start / 1000;
             $c->current->duration = $item->currentProgram->duration;
