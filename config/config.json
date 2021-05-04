@@ -39,7 +39,7 @@
         "market": {
             "labels": "http://178.252.134.130/services/api/economy/tree",
             "data": "http://178.252.134.130/services/api/economy/data",
-            "expire": 21600
+            "expire": 1800
         },
         "tehran-air": {
             "url": "http://31.24.238.89/home/homedata.aspx?id={type}",
@@ -57,6 +57,18 @@
             "channelsByCatId": "https://sepehrapi.irib.ir/v1/channels/{catId}?include_details=true&page=1&page_size=1000",
             "channelEpg": "https://sepehrapi.irib.ir/v1/epg/tvprogram?page_size=100000&language=fa&time_zone=%2B0330&page=1&date={date}&channel_id={channelId}",
             "expire": 1800
+        },
+        "ifilm": {
+            "url": "https://fa.ifilmtv.com",
+            "episodeThumbnailUrl": "http://preview.presstv.com/ifilm/{serieId}/{episodeNumber}.png",
+            "episodeVideoUrl": "https://preview.presstv.com/ifilm/{serieId}/{episodeNumber}.mp4",
+            "homepage": "https://fa.ifilmtv.com/api/homefa",
+            "schedule": "https://fa.ifilmtv.com/api/Schedule/GetItemInDay?strDate={date}",
+            "news": "https://fa.ifilmtv.com/api/news",
+            "newsDetail": "https://fa.ifilmtv.com/api/News/GetData?id={id}",
+            "series": "https://fa.ifilmtv.com/api/music/getindexseries",
+            "serieEpisode": "https://fa.ifilmtv.com/api/SerialIn?id={id}",
+            "expire": 10800
         }
     }
 }
