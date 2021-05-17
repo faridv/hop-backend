@@ -150,27 +150,31 @@ final class IfilmHandler {
     private function handleEpisodes($items) {
         $output = [];
         foreach ($items as $key => $item) {
-            $c = new stdClass();
-            $c->id = $item->Id;
-            $c->image = str_ireplace('{serieId}', $item->ItemId, str_ireplace('{episodeNumber}', $key + 1, $this->config->episodeThumbnailUrl));
-            $c->video = str_ireplace('{serieId}', $item->ItemId, str_ireplace('{episodeNumber}', $key + 1, $this->config->episodeVideoUrl));
-            $c->title = '';
-            $c->summary = '';
-            $c->part = ($key + 1);
+            if (strtotime($item->Date) < time()) {
+                $c = new stdClass();
+                $c->id = $item->Id;
+                $c->image = str_ireplace('{serieId}', $item->ItemId, str_ireplace('{episodeNumber}', $key + 1, $this->config->episodeThumbnailUrl));
+                $c->videoDownload = str_ireplace('{serieId}', $item->ItemId, str_ireplace('{episodeNumber}', $key + 1, $this->config->episodeVideoUrl));
+                $c->video = str_ireplace('{serieId}', $item->ItemId, str_ireplace('{episodeNumber}', $key + 1, $this->config->episodeVideoStreamUrl));
+                $c->title = '';
+                $c->summary = '';
+                $c->part = ($key + 1);
 
-            $output[] = $c;
+                $output[] = $c;
+            }
         }
         return $output;
     }
 
     private function handleNews($items) {
-        $sections = ['Iran', 'World', 'Article', 'InterView'];
+        $sections = ['Iran', 'World', 'Article', 'InterView', 'MostViewed'];
 
         $output = new stdClass();
         $output->iran = [];
         $output->world = [];
         $output->articles = [];
         $output->interview = [];
+        $output->mostviewed = [];
 
         foreach ($sections as $section) {
             foreach ($items->{$section} as $item) {
@@ -178,13 +182,13 @@ final class IfilmHandler {
                 $c->id = $item->Id;
                 $c->shortTitle = $item->Title;
                 $c->title = $item->Title;
-                $c->summary = $item->Summary;
+                $c->summary = isset($item->Summary) ? $item->Summary : '';
                 $c->text = '';
 
                 $c->thumbnail = new stdClass();
-                $c->thumbnail->url = $this->config->url . $item->ImageAddress_L;
+                $c->thumbnail->url = $this->config->url . (isset($item->ImageAddress_L) ? $item->ImageAddress_L : $item->ImageAddress_S);
                 $c->thumbnail->desc = $item->Title;
-                $c->media = $item->VideoAddress ? $this->config->url . $item->VideoAddress : null;
+                $c->media = isset($item->VideoAddress) ? $this->config->url . $item->VideoAddress : null;
 
                 $outputType = strtolower($section) === 'article' ? 'articles' : strtolower($section);
                 $output->{$outputType}[] = $c;
@@ -199,7 +203,7 @@ final class IfilmHandler {
         $output->id = $item->Id;
         $output->title = $item->Title;
         $output->summary = $item->Summary;
-        $output->text = $item->TextBody;
+        $output->text = str_ireplace(' src="/', ' src="' . $this->config->url . '/', $item->TextBody);
         $output->date = $item->Start_Date;
         $output->image = $this->config->url . $item->ImageAddress_L;
         $output->categories = [];
@@ -225,7 +229,8 @@ final class IfilmHandler {
                 $durationTime = (strtotime('24:00:00') - strtotime($item->Time . ':00')) / 3600;
             }
             $duration = floor($durationTime) . ':' . (($durationTime - floor($durationTime)) * 60);
-            $c->duration = sprintf('%02d:%02d:00', explode(':', $duration)[0], explode(':', $duration)[1]);
+            $durationFormatted = sprintf('%02d:%02d:00', explode(':', $duration)[0], explode(':', $duration)[1]);
+			$c->duration = strtotime($durationFormatted) - strtotime('today');
             $c->isCurrent = false;
             if (isset($items[$key + 1])) {
                 if (time() > strtotime($item->Time) && time() < strtotime($items[$key + 1]->Time)) {

@@ -27,8 +27,10 @@ $app->group('/ifilm', function (App $app) {
     })->setName('ifilm-news-detail');
 
 
-    $app->map(['GET'], '/schedule/{date:[0-9A-Za-z\:\-]+}', function (Request $request, Response $response, $args) {
-        $date = isset($args['date']) ? $args['date'] : null;
+    // $app->map(['GET'], '/schedule/{date:[0-9A-Za-z\:\-]+}', function (Request $request, Response $response, $args) {
+    $app->map(['GET'], '/schedule[/]', function (Request $request, Response $response, $args) {
+        // $date = isset($args['date']) ? $args['date'] : null;
+		$date = null !== $request->getParam('date') ? $request->getParam('date') : Date('Y-m-d', time());
         $channels = IfilmHandler::getInstance()->getSchedule($date);
         return $response->withJson($channels, 200, JSON_UNESCAPED_UNICODE);
     })->setName('ifilm-schedule');
