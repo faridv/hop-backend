@@ -99,7 +99,7 @@ final class IfilmHandler {
             $this->fromCache = true;
             return Response::prepare($cachedData, $this->fromCache);
         }
-        $url = str_replace('{id}', (string)$id, $this->config->newsDetail);
+        $url = str_replace('{id}', (string)$id, $this->config->serieEpisode);
         try {
             $data = $this->handleEpisodes(Proxy::fetch($url)->HeadLine->Episods);
             $cachedData = $this->cacheClient->set("ifilm/series/{$id}", json_encode($data, JSON_UNESCAPED_UNICODE), $this->config->expire);
@@ -154,13 +154,15 @@ final class IfilmHandler {
                 $c = new stdClass();
                 $c->id = $item->Id;
                 $c->image = str_ireplace('{serieId}', $item->ItemId, str_ireplace('{episodeNumber}', $key + 1, $this->config->episodeThumbnailUrl));
-                $c->videoDownload = str_ireplace('{serieId}', $item->ItemId, str_ireplace('{episodeNumber}', $key + 1, $this->config->episodeVideoUrl));
-                $c->video = str_ireplace('{serieId}', $item->ItemId, str_ireplace('{episodeNumber}', $key + 1, $this->config->episodeVideoStreamUrl));
+                $c->video = str_ireplace('{serieId}', $item->ItemId, str_ireplace('{episodeNumber}', $key + 1, $this->config->episodeVideoUrl));
+                $c->videoStream = str_ireplace('{serieId}', $item->ItemId, str_ireplace('{episodeNumber}', $key + 1, $this->config->episodeVideoStreamUrl));
                 $c->title = '';
                 $c->summary = '';
                 $c->part = ($key + 1);
 
-                $output[] = $c;
+				// if($this->checkUrlAvailability($c->image)) {
+					$output[] = $c;
+				// }
             }
         }
         return $output;
@@ -245,5 +247,15 @@ final class IfilmHandler {
         }
         return $output;
     }
+	
+	private function checkUrlAvailability($url) {
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_NOBODY, true); // set to HEAD request
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // don't output the response
+		curl_exec($ch);
+		$valid = curl_getinfo($ch, CURLINFO_HTTP_CODE) === 200;
+		curl_close($ch);
+		return $valid;
+	}
 
 }
