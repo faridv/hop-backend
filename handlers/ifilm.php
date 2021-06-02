@@ -101,7 +101,8 @@ final class IfilmHandler {
         }
         $url = str_replace('{id}', (string)$id, $this->config->serieEpisode);
         try {
-            $data = $this->handleEpisodes(Proxy::fetch($url)->HeadLine->Episods);
+			$response = Proxy::fetch($url);
+            $data = $this->handleEpisodes($response->Episods, $response->Episode);
             $cachedData = $this->cacheClient->set("ifilm/series/{$id}", json_encode($data, JSON_UNESCAPED_UNICODE), $this->config->expire);
             return Response::prepare($cachedData, $this->fromCache);
         } catch (Exception $e) {
@@ -147,10 +148,11 @@ final class IfilmHandler {
         return $output;
     }
 
-    private function handleEpisodes($items) {
+    private function handleEpisodes($items, $length) {
         $output = [];
         foreach ($items as $key => $item) {
-            if (strtotime($item->Date) < time()) {
+            if ($key <= $length) {
+            // if (strtotime($item->Date) < time()) {
                 $c = new stdClass();
                 $c->id = $item->Id;
                 $c->image = str_ireplace('{serieId}', $item->ItemId, str_ireplace('{episodeNumber}', $key + 1, $this->config->episodeThumbnailUrl));
