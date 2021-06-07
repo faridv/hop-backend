@@ -55,7 +55,7 @@
             "categories": "https://sepehrapi.irib.ir/v1/channels/categories",
             "channels": "https://sepehrapi.irib.ir/v1/channels?include_details=true&page=1&page_size=1000",
             "channelsByCatId": "https://sepehrapi.irib.ir/v1/channels/{catId}?include_details=true&page=1&page_size=1000",
-            "channelEpg": "https://sepehrapi.irib.ir/v1/epg/tvprogram?page_size=100000&language=fa&time_zone=%2B0330&page=1&date={date}&channel_id={channelId}",
+            "channelEpg": "https://sepehrapi.irib.ir/v1/epg/tvprogram?page_size=100000&language=fa&time_zone=+0330&page=1&date={date}&channel_id={channelId}",
             "expire": 1800
         },
         "ifilm": {
