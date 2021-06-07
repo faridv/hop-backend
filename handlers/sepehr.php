@@ -131,10 +131,10 @@ final class SepehrHandler {
         }
         $cacheKey = 'sepehr-epg-' . $channelId . '_' . $date;
         $cachedData = $this->checkCache($cacheKey);
-        // if ($cachedData) {
-        // $this->fromCache = true;
-        // return Response::prepare($cachedData, $this->fromCache);
-        // }
+        if ($cachedData) {
+            $this->fromCache = true;
+            return Response::prepare($cachedData, $this->fromCache);
+        }
         if (!$this->token->oauth_token) {
             $this->returnError(500, 'Authentication failed');
         }
