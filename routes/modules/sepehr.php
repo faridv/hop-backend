@@ -26,8 +26,8 @@ $app->group('/sepehr', function (App $app) {
     $app->map(['GET'], '/epg/{channelid:[0-9]+}[/date/{date:[0-9A-Za-z\:\-]+}]', function (Request $request, Response $response, $args) {
         $channelId = isset($args['channelid']) ? $args['channelid'] : null;
         $date = isset($args['date']) ? $args['date'] : null;
-        $channels = SepehrHandler::getInstance()->getEpg($channelId, $date);
-        return $response->withJson($channels, 200, JSON_UNESCAPED_UNICODE);
+        $epg = SepehrHandler::getInstance()->getEpg($channelId, $date);
+        return $response->withJson($epg, 200, JSON_UNESCAPED_UNICODE);
     })->setName('sepehr-epg');
 
 });

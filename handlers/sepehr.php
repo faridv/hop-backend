@@ -129,11 +129,69 @@ final class SepehrHandler {
         if (!$date) {
             $date = $this->today;
         }
+        $cacheKey = 'sepehr-epg-' . $channelId . '_' . $date;
+        $cachedData = $this->checkCache($cacheKey);
+        // if ($cachedData) {
+        // $this->fromCache = true;
+        // return Response::prepare($cachedData, $this->fromCache);
+        // }
+        if (!$this->token->oauth_token) {
+            $this->returnError(500, 'Authentication failed');
+        }
+        $url = str_replace('{channelId}', $channelId, $this->config->channelEpg);
+        $url = str_replace('{date}', $date, $url);
+        $client = $this->getRequestClient($url, [
+            'token' => $this->token->oauth_token,
+            'token_secret' => $this->token->oauth_token_secret,
+            'signature_method' => Oauth1::SIGNATURE_METHOD_HMAC,
+        ]);
+        try {
+            $response = $client->get($url, ['auth' => 'oauth']);
+            $data = $this->handleEpg($response->getBody()->getContents());
+            $cachedData = $this->cacheClient->set($cacheKey, json_encode($data, JSON_UNESCAPED_UNICODE), $this->config->expire);
+            return Response::prepare($cachedData, $this->fromCache);
+        } catch (GuzzleException $e) {
+            $this->returnError($e->getCode(), (string)$e->getResponse()->getBody());
+        }
     }
 
     private function returnError($errorCode, $message) {
         $response = new \Slim\Http\Response($errorCode);
         return $response->write('{"success":false,"message":"' . $message . '"}');
+    }
+
+    private function handleEpg($data) {
+        $output = [];
+        $items = json_decode($data)->list;
+        date_default_timezone_set('UTC');
+        foreach ($items as $key => $item) {
+            $c = new stdClass();
+//            $c->id = $item->id;
+            $c->mediaId = $item->id;
+            $c->description = $item->descSummary;
+
+            $timezone = new DateTimeZone('Asia/Tehran');
+            $time = new \DateTime('now', $timezone);
+            $timeOffsetInSeconds = $timezone->getOffset($time);
+            $start = date('Y-m-d h:i:s', ($item->start / 1000));
+            $newDateTime = new DateTime($start, $timezone);
+            $newDateTime->add(new DateInterval('PT' . $timeOffsetInSeconds . 'S'));
+            $c->start = $newDateTime->format('Y-m-d H:i:s');
+
+//            $c->start = date('Y-m-d h:i:s', ($item->start / 1000));
+            $c->d = $item->start;
+            $c->duration = $item->duration;
+            if ($item->current) {
+                $c->isCurrent = $item->current;
+            }
+            $c->episodeTitle = $item->title;
+            $c->thumbnail = $item->imageUrl;
+
+            @$c->poster = $item->src_poster;
+
+            $output[] = $c;
+        }
+        return $output;
     }
 
     private function handleCategories($data) {
