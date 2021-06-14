@@ -46,7 +46,7 @@
             "expire": 1800
         },
 		"items": {
-            "url": "http://uhdtv.ir/cms/api/items",
+            "url": "http://77.36.163.195/cms/api/items",
             "expire": 0
         },
         "sepehr": {
