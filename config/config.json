@@ -59,16 +59,16 @@
             "expire": 900
         },
         "ifilm": {
-            "url": "https://fa.ifilmtv.com",
-            "episodeThumbnailUrl": "http://preview.presstv.com/ifilm/{serieId}/{episodeNumber}.png",
-            "episodeVideoUrl": "https://preview.presstv.com/ifilm/{serieId}/{episodeNumber}.mp4",
-            "episodeVideoStreamUrl": "https://vod.ifilmtv.com/hls/{serieId}/,{episodeNumber},{episodeNumber}_320,.mp4.urlset/master.m3u8",
-            "homepage": "https://fa.ifilmtv.com/api/homefa",
-            "schedule": "https://fa.ifilmtv.com/api/Schedule/GetItemInDay?strDate={date}",
-            "news": "https://fa.ifilmtv.com/api/news",
-            "newsDetail": "https://fa.ifilmtv.com/api/News/GetData?id={id}",
-            "series": "https://fa.ifilmtv.com/api/music/getindexseries",
-            "serieEpisode": "https://fa.ifilmtv.com/api/SerialIn?id={id}",
+            "url": "https://fa.ifilmtv.ir",
+            "episodeThumbnailUrl": "https://preview.presstv.ir/ifilm/{serieId}/{episodeNumber}.png",
+            "episodeVideoUrl": "https://preview.presstv.ir/ifilm/{serieId}/{episodeNumber}.mp4",
+            "episodeVideoStreamUrl": "https://vod.ifilmtv.ir/hls/{serieId}/,{episodeNumber},{episodeNumber}_320,.mp4.urlset/master.m3u8",
+            "homepage": "https://fa.ifilmtv.ir/api/homefa",
+            "schedule": "https://fa.ifilmtv.ir/api/Schedule/GetItemInDay?strDate={date}",
+            "news": "https://fa.ifilmtv.ir/api/news",
+            "newsDetail": "https://fa.ifilmtv.ir/api/News/GetData?id={id}",
+            "series": "https://fa.ifilmtv.ir/api/music/getindexseries",
+            "serieEpisode": "https://fa.ifilmtv.ir/api/SerialIn?id={id}",
             "expire": 10800
         }
     }
