@@ -28,7 +28,7 @@
             "expire": 21600
         },
         "media": {
-            "url": "http://178.252.134.130/services/api/media/",
+            "url": "https://au.iktv.ir/services/api/media/",
             "expire": 21600
         },
         "quran": {
@@ -37,8 +37,8 @@
             "expire": -1
         },
         "market": {
-            "labels": "http://178.252.134.130/services/api/economy/tree",
-            "data": "http://178.252.134.130/services/api/economy/data",
+            "labels": "https://au.iktv.ir/services/api/economy/tree",
+            "data": "https://au.iktv.ir/services/api/economy/data",
             "expire": 1800
         },
         "tehran-air": {
