@@ -200,6 +200,8 @@ final class SepehrHandler {
         foreach ($items as $key => $item) {
 //            if (!$item->src_poster)
 //                continue;
+            if (!in_array($item->id, [2,3,4,1080]))
+                continue;
             $c = new stdClass();
             $c->id = $item->id;
             $c->name = $item->name;
