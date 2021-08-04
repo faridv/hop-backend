@@ -45,9 +45,9 @@
             "url": "http://31.24.238.89/home/homedata.aspx?id={type}",
             "expire": 1800
         },
-		"items": {
+		"uhd": {
             "url": "http://77.36.163.195/cms/api/items",
-            "expire": 0
+            "expire": 1800
         },
         "sepehr": {
             "consumerKey": "QKORpgyu9mpw3MZUUwu8Mm4qxYMsXq3L",

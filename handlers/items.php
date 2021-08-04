@@ -11,7 +11,7 @@ final class ItemsHandler {
     private $fromCache = false;
 
     private function __construct() {
-        $this->config = Config::getInstance()->data->modules->{'items'};
+        $this->config = Config::getInstance()->data->modules->{'uhd'};
         $this->cacheClient = Cache::getInstance();
     }
 
@@ -22,14 +22,14 @@ final class ItemsHandler {
         return self::$instance;
     }
 
-    private function checkCache($key = 'items') {
+    private function checkCache($key = 'uhd') {
         return $this->cacheClient->get($key);
     }
 
     public function getAll(Request $request, $args) {
         $uri = isset($args['uri']) && $args['uri'] ? $args['uri'] : '';
 		$uri .= '?' . $request->getUri()->getQuery();
-        $cacheKey = 'items' . str_replace('/', '$', str_replace('=', '.', str_replace('?', '_', $uri)));
+        $cacheKey = 'uhd' . str_replace('=', '-', str_replace('?', '_', $uri));
         $cachedData = $this->checkCache($cacheKey);
         if ($cachedData) {
             $this->fromCache = true;
