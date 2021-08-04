@@ -29,8 +29,8 @@ final class ItemsHandler {
     public function getAll(Request $request, $args) {
         $uri = isset($args['uri']) && $args['uri'] ? $args['uri'] : '';
 		$uri .= '?' . $request->getUri()->getQuery();
-        $cacheKey = str_replace('/', '$', $uri);
-        $cachedData = $this->checkCache('items' . $cacheKey);
+        $cacheKey = 'items' . str_replace('/', '$', str_replace('=', '.', str_replace('?', '_', $uri)));
+        $cachedData = $this->checkCache($cacheKey);
         if ($cachedData) {
             $this->fromCache = true;
             return Response::prepare($cachedData, $this->fromCache);
