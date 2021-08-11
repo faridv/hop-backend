@@ -6,15 +6,6 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\App as App;
 
-<<<<<<< Updated upstream
-$app->group('/items', function (App $app) {
-
-    $app->map(['GET'], '[/{uri:.*}]', function (Request $request, Response $response, $args) {
-        $items = UhdHandler::getInstance()->getAll($request, $args);
-        return $response->withJson($items, 200, JSON_UNESCAPED_UNICODE);
-    })->setName('items');
-
-=======
 $app->group('/uhd/epg', function (App $app) {
     $app->map(['GET'], '[/{date:[0-9A-Za-z\:\-]+}]', function (Request $request, Response $response, $args) {
         $date = isset($args['date']) ? $args['date'] : null;
@@ -28,5 +19,5 @@ $app->group('/uhd', function (App $app) {
         $items = UhdHandler::getInstance()->getAll($request, $args);
         return $response->withJson($items, 200, JSON_UNESCAPED_UNICODE);
     })->setName('uhd-items');
->>>>>>> Stashed changes
+	
 });
