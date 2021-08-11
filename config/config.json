@@ -47,7 +47,12 @@
         },
 		"uhd": {
             "url": "http://77.36.163.195/cms/api/items",
+<<<<<<< Updated upstream
             "expire": 1800
+=======
+            "epg": "http://172.16.138.175/services/api/share/ott/epgitems?date={jdate}&channel=4k",
+            "expire": 3600
+>>>>>>> Stashed changes
         },
         "sepehr": {
             "consumerKey": "QKORpgyu9mpw3MZUUwu8Mm4qxYMsXq3L",

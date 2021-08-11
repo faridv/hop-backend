@@ -9,5 +9,6 @@ require_once BASE . DS . 'config/default.php';
 require_once BASE . DS . 'helpers/proxy.php';
 require_once BASE . DS . 'helpers/cache.php';
 require_once BASE . DS . 'helpers/response.php';
+require_once BASE . DS . 'helpers/jdate.php';
 
 //$config = new Config();

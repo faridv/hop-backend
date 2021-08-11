@@ -21,7 +21,7 @@ final class SepehrHandler {
     private function __construct() {
         $this->config = Config::getInstance()->data->modules->sepehr;
         $this->cacheClient = Cache::getInstance();
-        $this->today = date('YYYY-MM-DD', time());
+        $this->today = date('Y-m-d', time());
         $this->token = $this->getAuth();
     }
 
@@ -200,8 +200,6 @@ final class SepehrHandler {
         foreach ($items as $key => $item) {
 //            if (!$item->src_poster)
 //                continue;
-            if (!in_array($item->id, [2,3,4,1080]))
-                continue;
             $c = new stdClass();
             $c->id = $item->id;
             $c->name = $item->name;

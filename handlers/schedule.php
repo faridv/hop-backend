@@ -39,12 +39,13 @@ final class ScheduleHandler {
 
     private function handle($items) {
         $output = [];
-        foreach($items as $key => $item) {
+        foreach ($items as $key => $item) {
             $c = new stdClass();
             $c->mediaId = $item->MediaId;
             $c->description = $item->description;
             $c->start = $item->start;
-            $c->duration = $item->duration;
+//            $c->duration = strtotime($item->duration) - strtotime('today');
+            $c->duration = (int)$item->duration;
             if ($item->isCurrent) {
                 $c->isCurrent = $item->isCurrent;
             }
