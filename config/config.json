@@ -71,6 +71,9 @@
             "series": "https://fa.ifilmtv.ir/api/music/getindexseries",
             "serieEpisode": "https://fa.ifilmtv.ir/api/SerialIn?id={id}",
             "expire": 10800
+        },
+        "islamic-prayers": {
+            "expire": -1
         }
     }
 }
