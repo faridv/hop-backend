@@ -21,11 +21,11 @@ final class WeatherHandler {
         return self::$instance;
     }
 
-    private function checkCache($lon, $lat) {
+    private function checkCache($lat, $lon) {
         return $this->cacheClient->get("weather-{$lon}_{$lat}");
     }
 
-    public function get($lon, $lat) {
+    public function get($lat, $lon) {
         $cachedData = $this->checkCache($lon, $lat);
         if ($cachedData) {
             $this->fromCache = true;
