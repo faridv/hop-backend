@@ -29,8 +29,10 @@ final class UhdHandler {
     }
 
     public function getAll(Request $request, $args) {
-        $uri = isset($args['uri']) && $args['uri'] ? $args['uri'] : '';
-        $uri .= '?' . $request->getUri()->getQuery();
+        $uri = isset($args['uri']) && $args['uri'] ? '/' . $args['uri'] : '';
+		if ($request->getUri()->getQuery()) {
+			$uri .= '?' . $request->getUri()->getQuery();
+		}
         $cacheKey = 'uhd' . str_replace('=', '-', str_replace('?', '_', $uri));
         $cachedData = $this->checkCache($cacheKey);
         if ($cachedData) {
