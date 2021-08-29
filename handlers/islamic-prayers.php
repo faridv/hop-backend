@@ -28,7 +28,7 @@ final class IslamicPrayers {
     }
 
     public function getByLocationsList($locations) {
-        $date = new DateTime(Date(DATE_RFC2822, strtotime('2021-08-10')), new DateTimezone('Asia/Tehran'));
+        $date = new DateTime(Date(DATE_RFC2822, time()), new DateTimezone('Asia/Tehran'));
         $coordinationList = explode(';', $locations);
         $output = new stdClass();
         foreach ($coordinationList as $coord) {
