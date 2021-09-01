@@ -13,11 +13,9 @@ final class IslamicPrayers {
 
     private static $instance = null;
     private $config;
-    private $today = '';
 
     private function __construct() {
         $this->config = Config::getInstance()->data->modules->{'islamic-prayers'};
-        $this->today = date('Y-m-d', time());
     }
 
     public static function getInstance() {
@@ -32,16 +30,16 @@ final class IslamicPrayers {
         $coordinationList = explode(';', $locations);
         $output = new stdClass();
         foreach ($coordinationList as $coord) {
-            list($latitude, $longitude) = explode(',', $coord);
+            list($longitude, $latitude) = explode(',', $coord);
             $pt = new PrayerTimes('TEHRAN');
             $times = $pt->getTimes($date, $latitude, $longitude,
                 null,
                 PrayerTimes::LATITUDE_ADJUSTMENT_METHOD_NONE,
                 PrayerTimes::MIDNIGHT_MODE_JAFARI,
-                PrayerTimes::TIME_FORMAT_FLOAT);
-            foreach ($times as $key => $time) {
-                $times[$key] = self::convertTime(DMath::fixHour($time + 0.5 / 60));
-            }
+                null);
+            // foreach ($times as $key => $time) {
+                // $times[$key] = self::convertTime(DMath::fixHour($time + 0.5 / 60));
+            // }
             $times['_date'] = JDate::gregorianToJalaali($date)->format('yyyy-MM-dd');
             $temp = (array)$this->separateAdditionalTimes($times);
             $new = (object)array_combine(array_map('strtolower', array_keys($temp)), $temp);
