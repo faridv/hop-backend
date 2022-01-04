@@ -2,6 +2,7 @@
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\App;
 
 $app->get('/', function (Request $request, Response $response, array $args) {
     $response = new \Slim\Http\Response(200);

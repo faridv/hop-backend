@@ -72,6 +72,11 @@
             "serieEpisode": "https://fa.ifilmtv.ir/api/SerialIn?id={id}",
             "expire": 10800
         },
+        "samt": {
+            "url": "https://simasso.irib.ir/SamtAtlas/api/v1/SamtProgram?channelId={channelId}&pageSize=50&titleOrLicenseOrEstimateNo={q}",
+            "defaultChannelId": 89,
+            "expire": 10800
+        },
         "islamic-prayers": {
             "expire": 0
         }

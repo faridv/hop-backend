@@ -1,0 +1,6 @@
+{
+    "require": {
+        "morilog/jalali": "3.*",
+        "zircote/swagger-php": "^4.1"
+    }
+}

@@ -447,7 +447,7 @@ resolved iteratively, allowing for "infinite" then chaining.
 
 ```php
 <?php
-require 'vendor/autoload.php';
+require 'vendor/jalalian-autoload.php';
 
 use GuzzleHttp\Promise\Promise;
 
