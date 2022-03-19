@@ -64,6 +64,12 @@ final class UhdHandler {
     private function handle($items) {
         foreach ($items as $item) {
             $item->introtext = strip_tags($item->introtext);
+			if ($item->img) {
+				$item->img = str_ireplace('http://77.36.163.195/cms/media/k2/items/cache/', '/media/', $item->img);
+			}
+			if ($item->thumb) {
+				$item->thumb = str_ireplace('http://77.36.163.195/cms/media/k2/items/cache/', '/media/', $item->thumb);
+			}
         }
         return $items;
     }

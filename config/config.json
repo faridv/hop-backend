@@ -15,7 +15,7 @@
             "expire": 21600
         },
         "weather": {
-            "url": "http://77.36.163.194/weather.php",
+            "url": "https://app.hbbtv.ir/weather.php",
             "expire": 1800
         },
         "programs": {
@@ -32,7 +32,7 @@
             "expire": 21600
         },
         "quran": {
-            "url": "http://77.36.163.196:7070/v1/",
+            "url": "https://api.irib.ir:7070/v1/",
             "edition": "quran-simple,fa.makarem",
             "expire": -1
         },
@@ -47,7 +47,7 @@
         },
 		"uhd": {
             "url": "http://77.36.163.195/cms/api/items",
-            "epg": "http://172.16.138.175/services/api/share/ott/epgitems?date={jdate}&channel=4k",
+            "epg": "https://qa.irib.ir/services/api/share/ott/epgitems?date={jdate}&channel=4k",
             "expire": 60
         },
         "sepehr": {
@@ -70,11 +70,6 @@
             "newsDetail": "https://fa.ifilmtv.ir/api/News/GetData?id={id}",
             "series": "https://fa.ifilmtv.ir/api/music/getindexseries",
             "serieEpisode": "https://fa.ifilmtv.ir/api/SerialIn?id={id}",
-            "expire": 10800
-        },
-        "samt": {
-            "url": "https://simasso.irib.ir/SamtAtlas/api/v1/SamtProgram?channelId={channelId}&pageSize=50&titleOrLicenseOrEstimateNo={q}",
-            "defaultChannelId": 89,
             "expire": 10800
         },
         "islamic-prayers": {
