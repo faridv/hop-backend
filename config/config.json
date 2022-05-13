@@ -59,6 +59,11 @@
             "channelEpg": "https://sepehrapi.irib.ir/v1/epg/tvprogram?page_size=100000&language=fa&time_zone=+0330&page=1&date={date}&channel_id={channelId}",
             "expire": 900
         },
+		"samt": {
+            "url": "https://simasso.irib.ir/SamtAtlas/api/v1/SamtProgram?channelId={channelId}&pageSize=50&titleOrLicenseOrEstimateNo={q}",
+            "defaultChannelId": 89,
+            "expire": 10800
+        },
         "ifilm": {
             "url": "https://fa.ifilmtv.ir",
             "episodeThumbnailUrl": "https://preview.presstv.ir/ifilm/{serieId}/{episodeNumber}.png",
